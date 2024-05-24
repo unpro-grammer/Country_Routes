@@ -43,23 +43,72 @@ public class Graph {
   }
 
   // BFS: LinkedHashSet to track visited nodes
-  public Set<Country> bfsShortestPath(Country source, Country destination) {
+  public List<Country> bfsShortestPath(Country source, Country destination) {
     Set<Country> visited = new LinkedHashSet<>();
     Queue<Country> queue = new LinkedList<>();
+    List<Country> shortestPath = new LinkedList<>();
+    Map<Country, List<Country>> prevs = new HashMap<>();
+
     queue.add(source);
     visited.add(source);
-    while (!queue.isEmpty()) {
+
+    boolean found = false;
+    while (!queue.isEmpty() && found == false) {
       Country country = queue.poll();
+
       for (Country c : adjacencies.get(country)) {
+        if (prevs.keySet().contains(c)) {
+          prevs.get(c).add(country);
+        } else {
+          prevs.put(c, new LinkedList<>());
+          prevs.get(c).add(country);
+        }
+
+        if (c.equals(destination)) {
+          shortestPath = retracePath(prevs, source, destination);
+          found = true;
+          break;
+        }
         if (!visited.contains(c)) {
           visited.add(c);
           queue.add(c);
         }
-        if (c.equals(destination)) {
-          return visited;
-        }
       }
     }
-    return visited;
+    // boolean retraced = false;
+
+    // while (!retraced) {
+    //   Country prevCountry = destination;
+    //   for (Country d : adjacencies.get(prevCountry)) {
+    //     if (visited.contains(d)) {
+    //       shortestPath.add(d);
+    //       prevCountry = d;
+    //     }
+    //     if (d.equals(source)) {
+    //       retraced = true;
+    //       break;
+    //     }
+    //   }
+    // }
+
+    return shortestPath;
+  }
+
+  public List<Country> retracePath(
+      Map<Country, List<Country>> prevs, Country source, Country dest) {
+
+    List<Country> shortestPath = new LinkedList<>();
+    Country current = dest;
+
+    while (!current.equals(source)) {
+      shortestPath.add(current);
+      Country prev = prevs.get(current).get(0);
+      current = prev;
+    }
+
+    shortestPath.add(source);
+    Collections.reverse(shortestPath);
+
+    return shortestPath;
   }
 }

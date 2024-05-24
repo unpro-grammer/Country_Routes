@@ -70,11 +70,15 @@ public class MapEngine {
     Country source = getInputCountry(MessageCli.INSERT_SOURCE);
     Country destination = getInputCountry(MessageCli.INSERT_DESTINATION);
 
-    List<Country> path;
-    path = worldMap.bfsShortestPath(source, destination);
-    MessageCli.ROUTE_INFO.printMessage(displayPath(path));
-    MessageCli.CONTINENT_INFO.printMessage(getContinents(path));
-    MessageCli.TAX_INFO.printMessage(getTaxFees(path));
+    if (source.equals(destination)) {
+      MessageCli.NO_CROSSBORDER_TRAVEL.printMessage();
+    } else {
+      List<Country> path;
+      path = worldMap.bfsShortestPath(source, destination);
+      MessageCli.ROUTE_INFO.printMessage(displayPath(path));
+      MessageCli.CONTINENT_INFO.printMessage(getContinents(path));
+      MessageCli.TAX_INFO.printMessage(getTaxFees(path));
+    }
   }
 
   public String displayPath(List<Country> path) {

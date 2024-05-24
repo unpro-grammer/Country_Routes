@@ -29,5 +29,14 @@ public class Graph {
     return false;
   }
 
+  public Country getCountry(String name) {
+    for (Country n : adjacencies.keySet()) {
+      if (n.getName().equals(name)) {
+        return n;
+      }
+    }
+    return null;
+  }
+
   // BFS: LinkedHashSet to track visited nodes
 }

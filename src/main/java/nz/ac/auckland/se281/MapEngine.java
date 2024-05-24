@@ -35,18 +35,19 @@ public class MapEngine {
     }
   }
 
-  public String getInputCountry() {
+  public Country getInputCountry() {
     MessageCli.INSERT_COUNTRY.printMessage();
     String inputCountry = Utils.scanner.nextLine();
+
     if (!worldMap.countryExists(inputCountry)) {
       throw new CountryNotValidException(inputCountry);
     }
-    return inputCountry;
+    return worldMap.getCountry(inputCountry);
   }
 
   /** this method is invoked when the user run the command info-country. */
   public void showInfoCountry() {
-    String inputCountry;
+    Country inputCountry;
     while (true) {
       try {
         inputCountry = getInputCountry();
@@ -55,6 +56,9 @@ public class MapEngine {
 
       }
     }
+
+    MessageCli.COUNTRY_INFO.printMessage(
+        inputCountry.getName(), inputCountry.getContinent(), inputCountry.getFee());
   }
 
   /** this method is invoked when the user run the command route. */

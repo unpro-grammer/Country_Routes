@@ -36,26 +36,28 @@ public class MapEngine {
   }
 
   public Country getInputCountry() {
-    MessageCli.INSERT_COUNTRY.printMessage();
-    String inputCountry = Utils.scanner.nextLine();
-    String caseCorrectInput = Utils.capitalizeFirstLetterOfEachWord(inputCountry);
-    if (!worldMap.countryExists(caseCorrectInput)) {
-      throw new CountryNotValidException(caseCorrectInput);
+
+    Country country;
+    String inputCountry;
+    String caseCorrectInput = "";
+
+    while (true) {
+      try {
+        MessageCli.INSERT_COUNTRY.printMessage();
+        inputCountry = Utils.scanner.nextLine();
+        caseCorrectInput = Utils.capitalizeFirstLetterOfEachWord(inputCountry);
+        country = worldMap.getCountry(caseCorrectInput);
+        break;
+      } catch (CountryNotValidException e) {
+        MessageCli.INVALID_COUNTRY.printMessage(caseCorrectInput);
+      }
     }
-    return worldMap.getCountry(caseCorrectInput);
+    return country;
   }
 
   /** this method is invoked when the user run the command info-country. */
   public void showInfoCountry() {
-    Country inputCountry;
-    while (true) {
-      try {
-        inputCountry = getInputCountry();
-        break;
-      } catch (CountryNotValidException e) {
-
-      }
-    }
+    Country inputCountry = getInputCountry();
 
     MessageCli.COUNTRY_INFO.printMessage(
         inputCountry.getName(), inputCountry.getContinent(), inputCountry.getFee());

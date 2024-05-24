@@ -11,7 +11,8 @@ public class Graph {
   }
 
   public void addVertex(Country node) {
-    adjacencies.putIfAbsent(node, new LinkedList<>());
+    List<Country> theAdjacents = new LinkedList<>();
+    adjacencies.putIfAbsent(node, theAdjacents);
   }
 
   public void addEdge(Country node1, Country node2) {
@@ -34,6 +35,9 @@ public class Graph {
       if (n.getName().equals(name)) {
         return n;
       }
+    }
+    if (!countryExists(name)) {
+      throw new CountryNotValidException(name);
     }
     return null;
   }

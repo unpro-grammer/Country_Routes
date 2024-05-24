@@ -43,4 +43,23 @@ public class Graph {
   }
 
   // BFS: LinkedHashSet to track visited nodes
+  public Set<Country> bfsShortestPath(Country source, Country destination) {
+    Set<Country> visited = new LinkedHashSet<>();
+    Queue<Country> queue = new LinkedList<>();
+    queue.add(source);
+    visited.add(source);
+    while (!queue.isEmpty()) {
+      Country country = queue.poll();
+      for (Country c : adjacencies.get(country)) {
+        if (!visited.contains(c)) {
+          visited.add(c);
+          queue.add(c);
+        }
+        if (c.equals(destination)) {
+          return visited;
+        }
+      }
+    }
+    return visited;
+  }
 }

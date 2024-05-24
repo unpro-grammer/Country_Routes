@@ -1,6 +1,7 @@
 package nz.ac.auckland.se281;
 
 import java.util.List;
+import java.util.Set;
 
 /** This class is the main entry point. */
 public class MapEngine {
@@ -67,5 +68,9 @@ public class MapEngine {
   public void showRoute() {
     Country source = getInputCountry(MessageCli.INSERT_SOURCE);
     Country destination = getInputCountry(MessageCli.INSERT_DESTINATION);
+
+    Set<Country> path;
+    path = worldMap.bfsShortestPath(source, destination);
+    MessageCli.ROUTE_INFO.printMessage();
   }
 }

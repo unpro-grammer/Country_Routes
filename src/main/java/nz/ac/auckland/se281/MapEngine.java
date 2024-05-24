@@ -38,11 +38,11 @@ public class MapEngine {
   public Country getInputCountry() {
     MessageCli.INSERT_COUNTRY.printMessage();
     String inputCountry = Utils.scanner.nextLine();
-
-    if (!worldMap.countryExists(inputCountry)) {
-      throw new CountryNotValidException(inputCountry);
+    String caseCorrectInput = Utils.capitalizeFirstLetterOfEachWord(inputCountry);
+    if (!worldMap.countryExists(caseCorrectInput)) {
+      throw new CountryNotValidException(caseCorrectInput);
     }
-    return worldMap.getCountry(inputCountry);
+    return worldMap.getCountry(caseCorrectInput);
   }
 
   /** this method is invoked when the user run the command info-country. */

@@ -39,17 +39,17 @@ public class MapEngine {
     MessageCli.INSERT_COUNTRY.printMessage();
     String inputCountry = Utils.scanner.nextLine();
     if (!worldMap.countryExists(inputCountry)) {
-      throw new CountryNotValidException();
+      throw new CountryNotValidException(inputCountry);
     }
     return inputCountry;
   }
 
   /** this method is invoked when the user run the command info-country. */
   public void showInfoCountry() {
-    String inputCountry = "";
+    String inputCountry;
     while (true) {
       try {
-        getInputCountry();
+        inputCountry = getInputCountry();
         break;
       } catch (CountryNotValidException e) {
 

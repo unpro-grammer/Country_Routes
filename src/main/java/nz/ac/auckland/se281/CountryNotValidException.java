@@ -1,7 +1,7 @@
 package nz.ac.auckland.se281;
 
 public class CountryNotValidException extends RuntimeException {
-  public CountryNotValidException() {
-    MessageCli.INVALID_COUNTRY.printMessage();
+  public CountryNotValidException(String countryName) {
+    MessageCli.INVALID_COUNTRY.printMessage(countryName);
   }
 }

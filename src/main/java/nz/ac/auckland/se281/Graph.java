@@ -2,22 +2,31 @@ package nz.ac.auckland.se281;
 
 import java.util.*;
 
-public class Graph<T> {
+public class Graph {
 
-  private Map<T, List<T>> adjacencies;
+  private Map<Country, List<Country>> adjacencies;
 
   public Graph() {
     this.adjacencies = new HashMap<>();
   }
 
-  public void addVertex(T node) {
+  public void addVertex(Country node) {
     adjacencies.putIfAbsent(node, new LinkedList<>());
   }
 
-  public void addEdge(T node1, T node2) {
+  public void addEdge(Country node1, Country node2) {
     addVertex(node1);
     addVertex(node2);
     adjacencies.get(node1).add(node2);
+  }
+
+  public boolean countryExists(String name) {
+    for (Country n : adjacencies.keySet()) {
+      if (n.getName().equals(name)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   // BFS: LinkedHashSet to track visited nodes

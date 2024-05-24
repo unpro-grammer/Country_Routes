@@ -35,7 +35,7 @@ public class MapEngine {
     }
   }
 
-  public Country getInputCountry() {
+  public Country getInputCountry(MessageCli msg) {
 
     Country country;
     String inputCountry;
@@ -43,7 +43,7 @@ public class MapEngine {
 
     while (true) {
       try {
-        MessageCli.INSERT_COUNTRY.printMessage();
+        msg.printMessage();
         inputCountry = Utils.scanner.nextLine();
         caseCorrectInput = Utils.capitalizeFirstLetterOfEachWord(inputCountry);
         country = worldMap.getCountry(caseCorrectInput);
@@ -57,12 +57,15 @@ public class MapEngine {
 
   /** this method is invoked when the user run the command info-country. */
   public void showInfoCountry() {
-    Country inputCountry = getInputCountry();
+    Country inputCountry = getInputCountry(MessageCli.INSERT_COUNTRY);
 
     MessageCli.COUNTRY_INFO.printMessage(
         inputCountry.getName(), inputCountry.getContinent(), inputCountry.getFee());
   }
 
   /** this method is invoked when the user run the command route. */
-  public void showRoute() {}
+  public void showRoute() {
+    Country source = getInputCountry(MessageCli.INSERT_SOURCE);
+    Country destination = getInputCountry(MessageCli.INSERT_DESTINATION);
+  }
 }

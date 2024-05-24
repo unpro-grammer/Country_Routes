@@ -74,6 +74,7 @@ public class MapEngine {
     path = worldMap.bfsShortestPath(source, destination);
     MessageCli.ROUTE_INFO.printMessage(displayPath(path));
     MessageCli.CONTINENT_INFO.printMessage(getContinents(path));
+    MessageCli.TAX_INFO.printMessage(getTaxFees(path));
   }
 
   public String displayPath(List<Country> path) {
@@ -106,5 +107,15 @@ public class MapEngine {
     }
     cont.append("]");
     return cont.toString();
+  }
+
+  public String getTaxFees(List<Country> path) {
+    int sum = 0;
+    for (int i = 1; i < path.size(); i++) {
+      int tax = Integer.parseInt(path.get(i).getFee());
+      sum += tax;
+    }
+
+    return sum + "";
   }
 }

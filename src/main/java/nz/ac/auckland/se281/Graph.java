@@ -57,18 +57,20 @@ public class Graph {
       Country country = queue.poll();
 
       for (Country c : adjacencies.get(country)) {
-        if (prevs.keySet().contains(c)) {
-          prevs.get(c).add(country);
-        } else {
+
+        // eventually record in order the nodes that counted as a predecessor of c, essentially
+        if (!prevs.keySet().contains(c)) {
           prevs.put(c, new LinkedList<>());
-          prevs.get(c).add(country);
         }
+        prevs.get(c).add(country);
 
         if (c.equals(destination)) {
+          // delegate construction of path to path retracing function for readability
           shortestPath = retracePath(prevs, source, destination);
           found = true;
           break;
         }
+
         if (!visited.contains(c)) {
           visited.add(c);
           queue.add(c);
@@ -87,6 +89,7 @@ public class Graph {
 
     while (!current.equals(source)) {
       shortestPath.add(current);
+      // retrieve the "first" parent/prev node of current
       Country prev = prevs.get(current).get(0);
       current = prev;
     }

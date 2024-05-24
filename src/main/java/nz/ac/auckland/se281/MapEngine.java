@@ -1,5 +1,6 @@
 package nz.ac.auckland.se281;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** This class is the main entry point. */
@@ -30,7 +31,8 @@ public class MapEngine {
       String[] currentCountryNeighbours = adjacencies.get(i).split(",");
       for (int j = 1; j < currentCountryNeighbours.length; j++) {
         worldMap.addEdge(
-            new Country(currentCountryNeighbours[0]), new Country(currentCountryNeighbours[j]));
+            worldMap.getCountry(currentCountryNeighbours[0]),
+            worldMap.getCountry(currentCountryNeighbours[j]));
       }
     }
   }
@@ -71,6 +73,7 @@ public class MapEngine {
     List<Country> path;
     path = worldMap.bfsShortestPath(source, destination);
     MessageCli.ROUTE_INFO.printMessage(displayPath(path));
+    MessageCli.CONTINENT_INFO.printMessage(getContinents(path));
   }
 
   public String displayPath(List<Country> path) {
@@ -84,5 +87,24 @@ public class MapEngine {
     }
     str.append("]");
     return str.toString();
+  }
+
+  public String getContinents(List<Country> path) {
+    List<String> continents = new ArrayList<>();
+    for (Country c : path) {
+      if (!continents.contains(c.getContinent())) {
+        continents.add(c.getContinent());
+      }
+    }
+    StringBuilder cont = new StringBuilder();
+    cont.append("[");
+    for (int i = 0; i < continents.size(); i++) {
+      cont.append(continents.get(i));
+      if (i < continents.size() - 1) {
+        cont.append(", ");
+      }
+    }
+    cont.append("]");
+    return cont.toString();
   }
 }

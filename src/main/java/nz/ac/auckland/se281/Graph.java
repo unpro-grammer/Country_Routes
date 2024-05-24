@@ -75,21 +75,6 @@ public class Graph {
         }
       }
     }
-    // boolean retraced = false;
-
-    // while (!retraced) {
-    //   Country prevCountry = destination;
-    //   for (Country d : adjacencies.get(prevCountry)) {
-    //     if (visited.contains(d)) {
-    //       shortestPath.add(d);
-    //       prevCountry = d;
-    //     }
-    //     if (d.equals(source)) {
-    //       retraced = true;
-    //       break;
-    //     }
-    //   }
-    // }
 
     return shortestPath;
   }

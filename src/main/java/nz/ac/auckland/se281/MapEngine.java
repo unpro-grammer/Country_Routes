@@ -74,6 +74,15 @@ public class MapEngine {
   }
 
   public String displayPath(List<Country> path) {
-    return "";
+    StringBuilder str = new StringBuilder();
+    str.append("[");
+    for (int i = 0; i < path.size(); i++) {
+      str.append(path.get(i).getName());
+      if (i < path.size() - 1) {
+        str.append(", ");
+      }
+    }
+    str.append("]");
+    return str.toString();
   }
 }

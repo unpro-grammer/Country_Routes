@@ -1,10 +1,21 @@
 package nz.ac.auckland.se281;
 
+/**
+ * Data structure that comprises information about each country, acting as a node for the Graph data
+ * structure.
+ */
 public class Country {
   private String name;
   private String continent;
   private String fee;
 
+  /**
+   * Constructor for creating a new country.
+   *
+   * @param name Name of country.
+   * @param continent Continent the country belongs in.
+   * @param fee The tax fee associated with crossing a border into this country.
+   */
   public Country(String name, String continent, String fee) {
     this.name = name;
     this.continent = continent;

@@ -81,10 +81,13 @@ public class MapEngine {
     Country destination = getInputCountry(MessageCli.INSERT_DESTINATION);
 
     if (source.equals(destination)) {
+      // if the source and destination country is the same, there is no need for travel.
       MessageCli.NO_CROSSBORDER_TRAVEL.printMessage();
     } else {
       List<Country> path;
+      // find the shortest path between source and destination country.
       path = worldMap.bfsShortestPath(source, destination);
+      // display all the relevant info associated with travel.
       MessageCli.ROUTE_INFO.printMessage(displayPath(path));
       MessageCli.CONTINENT_INFO.printMessage(getContinents(path));
       MessageCli.TAX_INFO.printMessage(getTaxFees(path));
@@ -138,6 +141,12 @@ public class MapEngine {
     return cont.toString();
   }
 
+  /**
+   * Calculate total tax fee associated with travelling along the given path.
+   *
+   * @param path List of countries along the path.
+   * @return Total tax fee that must be paid for cross-border travel.
+   */
   public String getTaxFees(List<Country> path) {
     int sum = 0;
     // sum up all tax fees along the path, neglecting the source country.

@@ -51,10 +51,11 @@ public class MapEngine {
     String inputCountry;
     String caseCorrectInput = "";
 
+    // print prompt that asks for an input country specific to the current purpose
+    msg.printMessage();
+
     while (true) {
       try {
-        // print prompt that asks for an input country specific to the current purpose
-        msg.printMessage();
         inputCountry = Utils.scanner.nextLine();
         // allow users to use any case for the first letter of each word in the country name
         caseCorrectInput = Utils.capitalizeFirstLetterOfEachWord(inputCountry);

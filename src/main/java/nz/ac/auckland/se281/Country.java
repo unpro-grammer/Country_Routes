@@ -42,6 +42,7 @@ public class Country {
     if (getClass() != obj.getClass()) {
       return false;
     }
+    // at the point, it is guaranteed that both objects are of type Country, allowing casting
     Country other = (Country) obj;
     if (name == null) {
       if (other.name != null) {

@@ -6,7 +6,7 @@ import java.util.List;
 /** This class is the main entry point. */
 public class MapEngine {
 
-  Graph worldMap;
+  private Graph worldMap;
 
   public MapEngine() {
     // add other code here if you want
